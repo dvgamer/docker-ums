@@ -1,14 +1,10 @@
-dvgamer/ums
+dvgamer/ums:6.6.0 [![Build Status](https://travis-ci.org/dvgamer/docker-ums.svg?branch=master)](https://travis-ci.org/dvgamer/docker-ums)
 ============
 
 Introduction
 -------------
 Dockerfile to build a [Universal Media Server](http://www.universalmediaserver.com/) (UMS) container image. based on java:openjdk-8-jre.  
 README is written in Thai Only.
-
-### Version
-Current Version (2016.09): exlair/ums:6.5.0  
-**Note**: The update frequency of this container image will be irregular.
 
 
 Installation
@@ -39,23 +35,19 @@ or if `eth0` is not the default network:
 	  -e X_UMS_NETWORK_INTERFACES=ens33
 	  --name ums dvgamer/ums
 
-set your interface name to `X_UMS_NETWORK_INTERFACES` env.
+ตั้งค่า Interface ได้จาก env `X_UMS_NETWORK_INTERFACES`
 
-You can also start using the `docker-compose` command. Please refer to the `docker-compose.yml.sample` file.
+คุณสามารถแก้ไขไฟล์ `docker-compose` ได้เลยหากต้องการเปลี่ยนแปลงการตั้งค่า
 
 Restriction
 --------------
-- DockerHubレポジトリへの登録を行っていないためビルドが必要です。
-- PlayStation 3 or 4 で動画視聴をする目的しかありませんので、音楽再生などその他用途のためには設定が不足している可能性が高いです。最低限の用途でしか動作確認をしておりません。
-- 伴って、同梱の `UMS.conf` ではいくつかの項目を削除しています。削除してもデフォルト設定で動作しますので実害は生じませんが、必要に応じて conf を上書きしてください。
+- การใช้งานบน PlayStation 3 or 4 อาจจะจำเป็นต้องเพิ่งการตั้งค่าสักเล็กน้อยเพื่อให้สามารถรับรองการใช้งานของ PlayStation ได้
+- การลบการตั้งค่าบางตัวของ `UMS.conf` ไม่ได้ืำให้เกิดปัญหาในการืำงานแต่อย่างใด เนื่อจากระบบมีการกำหนดค่าพื้นฐานให้อยู่แล้ว
 
 
 Configuration
 --------------
-初期値として、 `UMS.conf` と `WEB.conf` のデフォルト設定がコンテナ内に配置されています。多くの場合、映像ファイルの配置ディレクトリ設定等のチューニングを行いたいと思いますので、初期設定値では不足するものと想定しています。
-
-その場合、ホストマシンの任意のディレクトリに `UMS.conf` と `WEB.conf` の2ファイルを用意し、ボリュームをマウントしてください。
-
+การตั้งค่าใหม่ให้กับ `UMS.conf` และ `WEB.conf` เช่น
 
 	docker run -d \
 	  -v /path/to/your/mediavolume:/media \
@@ -64,8 +56,6 @@ Configuration
 
 
 ### Available Configuration Parameters
-設定ファイルのうち、いくつかの値は環境変数により設定可能です（以下リスト）。これで足りる場合は、設定ファイルをマウントするよりも手軽に利用することができます。
-
 Below is the list of parameters that can be set using environment variables.
 
 * **X_UMS_FOLDERS**: default "`/media`"
@@ -73,13 +63,6 @@ Below is the list of parameters that can be set using environment variables.
 * **X_UMS_SKIP_NETWORK_INTERFACES**: default "`tap,vmnet,vnic`"
 * **X_UMS_ENGINES**: default "`ffmpegvideo,mencoder,tsmuxer,ffmpegaudio,tsmuxeraudio,ffmpegwebvideo,vlcwebvideo,vlcvideo,mencoderwebvideo,vlcaudio,ffmpegdvrmsremux,rawthumbs`"
 
-
-Specification
---------------
-
-- `/srv/ums` をホームディレクトリ & UMS配置ディレクトリとしています。
-- 設定ファイル (`UMS.conf`, `WEB.conf`) を `./conf` ディレクトリに配置しているため、`docker run` のタイミングでホストのディレクトリをマウントすることでファイルを上書き可能です。
-- 一部の設定項目を環境変数で設定可能とするために、[Entrykit][entrykit] を利用しています。
 
 References
 --------------

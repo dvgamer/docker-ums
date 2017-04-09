@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  ums:
+    build: .
+    restart: always
+    image: dvgamer/ums:6.6.0
+    container_name: ums
+    network_mode: host
+    environment:
+      - X_UMS_NETWORK_INTERFACES=enp0s25
+      - X_UMS_ENGINES=ffmpegvideo,ffmpegaudio,ffmpegwebvideo,vlcwebvideo,vlcvideo,vlcaudio,ffmpegdvrmsremux
+    ports:
+      - "5001:5001"
+      - "9001:9001"
+    volumes:
+      - /anime:/media

@@ -1,7 +1,9 @@
-FROM java:openjdk-8-jre
+FROM ubuntu:16.04
 MAINTAINER Kananek Thongkam <info.dvgamer@gmail.com>
 
-RUN apt-get install -y wget dcraw mediainfo ffmpeg mencoder mplayer vlc \
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get -y upgrade \
+  && apt-get install -y wget openjdk-8-jre dcraw mediainfo ffmpeg mencoder mplayer vlc \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -34,8 +36,8 @@ RUN wget ${UMS_DLURL} -O /srv/UMS-${UMS_VER}-Java8.tgz &&\
   useradd -u 500 -g 500 -d /srv/ums -c UniversalMediaServer -s /bin/bash -M ums &&\
   chown -R ums:ums /srv/ums
 
-COPY ./assets/UMS.conf /srv/ums/conf/UMS.conf
-RUN chown ums:ums /srv/ums/conf/UMS.conf
+ADD ./assets/UMS.conf /srv/ums/conf/UMS.conf.tmpl
+RUN chown ums:ums /srv/ums/conf/UMS.conf.tmpl
 
 USER ums
 WORKDIR /srv/ums
