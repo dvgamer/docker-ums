@@ -4,6 +4,9 @@ language: ruby
 
 env:
   DOCKER_COMPOSE_VERSION: 1.12.0
+  DOCKER_UMS_VERSION: dvgamer/ums:6.6.0
+  DOCKER_USERNAME: dvgamer
+  DOCKER_PASSWORD : dvg7po8ai
 
 services:
   - docker
@@ -15,7 +18,14 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - docker-compose up
+  - docker-compose up -d ums
 
 after_script:
   - docker images
+  - docker-compose ps
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push ${DOCKER_UMS_VERSION};
+    fi
