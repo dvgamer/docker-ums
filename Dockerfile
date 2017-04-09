@@ -1,11 +1,7 @@
-FROM ubuntu:16.04
-MAINTAINER Dobashi, Hiroki <exlair@gmail.com>
+FROM java:openjdk-8-jre
+MAINTAINER Kananek Thongkam <info.dvgamer@gmail.com>
 
-# RUN sed -i -e 's/archive.ubuntu.com\/ubuntu\//ftp.jaist.ac.jp\/pub\/Linux\/ubuntu\//' /etc/apt/sources.list
-
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get -y upgrade \
-  && apt-get install -y wget openjdk-8-jre dcraw mediainfo ffmpeg mencoder mplayer vlc \
+RUN apt-get install -y wget dcraw mediainfo ffmpeg mencoder mplayer vlc \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +13,7 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
   && chmod +x /bin/entrykit \
   && entrykit --symlink
 
-ENV UMS_VER=6.5.0
+ENV UMS_VER=6.6.0
 
 ENV UMS_TARNAME=UMS-${UMS_VER}-Java8.tgz \
     UMS_DLURL=https://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-${UMS_VER}-Java8.tgz/download \
@@ -38,8 +34,8 @@ RUN wget ${UMS_DLURL} -O /srv/UMS-${UMS_VER}-Java8.tgz &&\
   useradd -u 500 -g 500 -d /srv/ums -c UniversalMediaServer -s /bin/bash -M ums &&\
   chown -R ums:ums /srv/ums
 
-ADD ./assets/UMS.conf.tmpl /srv/ums/conf/UMS.conf.tmpl
-RUN chown ums:ums /srv/ums/conf/UMS.conf.tmpl
+COPY ./assets/UMS.conf /srv/ums/conf/UMS.conf
+RUN chown ums:ums /srv/ums/conf/UMS.conf
 
 USER ums
 WORKDIR /srv/ums

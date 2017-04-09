@@ -1,10 +1,10 @@
-exlair/ums
+dvgamer/ums
 ============
 
 Introduction
 -------------
-Dockerfile to build a [Universal Media Server](http://www.universalmediaserver.com/) (UMS) container image. based on Ubuntu:16.04.  
-README is written in Japanese Only.
+Dockerfile to build a [Universal Media Server](http://www.universalmediaserver.com/) (UMS) container image. based on java:openjdk-8-jre.  
+README is written in Thai Only.
 
 ### Version
 Current Version (2016.09): exlair/ums:6.5.0  
@@ -13,13 +13,13 @@ Current Version (2016.09): exlair/ums:6.5.0
 
 Installation
 --------------
+	$ mkdir -p /ums && cd /ums
 
-	$ git clone https://github.com/exlair/docker-ums.git
+	$ git clone https://github.com/dvgamer/docker-ums.git .
 	
-	$ docker build -t exlair/ums:6.5.0 ./clone-repository
+	$ docker build -t dvgamer/ums .
 	   or
-	$ make release
-
+	$ docker-compose up -d
 
 Quick Start
 --------------
@@ -29,15 +29,15 @@ Example usage:
 	$ docker run -d --net=host --restart=always \
 	  -p 5001:5001 -p 9001:9001 \
 	  -v /path/to/your/mediavolume:/media \
-	  --name ums exlair/ums:6.5.0
+	  --name ums dvgamer/ums
 
 or if `eth0` is not the default network:
 
 	$ docker run -d --net=host --restart=always \
 	  -p 5001:5001 -p 9001:9001 \
-	  -v /path/to/your/mediavolume:/media \
+	  -v /anime:/media \
 	  -e X_UMS_NETWORK_INTERFACES=ens33
-	  --name ums exlair/ums:6.5.0
+	  --name ums dvgamer/ums
 
 set your interface name to `X_UMS_NETWORK_INTERFACES` env.
 
@@ -80,19 +80,6 @@ Specification
 - `/srv/ums` をホームディレクトリ & UMS配置ディレクトリとしています。
 - 設定ファイル (`UMS.conf`, `WEB.conf`) を `./conf` ディレクトリに配置しているため、`docker run` のタイミングでホストのディレクトリをマウントすることでファイルを上書き可能です。
 - 一部の設定項目を環境変数で設定可能とするために、[Entrykit][entrykit] を利用しています。
-
-Directory Structure:
-
-	-rwxr-xr-x    ums      ums   UMS.sh
-	lrwxrwxrwx    ums      ums   UMS.conf -> conf/UMS.conf
-	lrwxrwxrwx    ums      ums   WEB.conf -> conf/WEB.conf
-	drwxr-xr-x    ums      ums   conf
-	
-	~ $ ls -al ./conf/
-	drwxr-xr-x    ums      ums    .
-	drwxr-sr-x    ums      ums    ..
-	-rw-r--r--    ums      ums    UMS.conf
-	-rw-r--r--    ums      ums    WEB.conf
 
 References
 --------------
