@@ -1,9 +1,9 @@
-dvgamer/ums:6.6.0 [![Build Status](https://travis-ci.org/dvgamer/docker-ums.svg?branch=master)](https://travis-ci.org/dvgamer/docker-ums)
+dvgamer/ums:6.6.0 [![Build Status](https://travis-ci.org/dvgamer/docker-ums.svg?branch=6.6.0)](https://travis-ci.org/dvgamer/docker-ums)
 ============
 
 Introduction
 -------------
-Dockerfile to build a [Universal Media Server](http://www.universalmediaserver.com/) (UMS) container image. based on java:openjdk-8-jre.  
+Dockerfile to build a [Universal Media Server](http://www.universalmediaserver.com/) (UMS) container image. based on ubuntu:16.04  
 README is written in Thai Only.
 
 
@@ -27,7 +27,7 @@ Example usage:
 	  -v /path/to/your/mediavolume:/media \
 	  --name ums dvgamer/ums
 
-or if `eth0` is not the default network:
+หรือถ้า interface `eth0` ไม่ใช่ค่าพื้นฐานของระบบ:
 
 	$ docker run -d --net=host --restart=always \
 	  -p 5001:5001 -p 9001:9001 \
@@ -41,7 +41,7 @@ or if `eth0` is not the default network:
 
 Restriction
 --------------
-- การใช้งานบน PlayStation 3 or 4 อาจจะจำเป็นต้องเพิ่งการตั้งค่าสักเล็กน้อยเพื่อให้สามารถรับรองการใช้งานของ PlayStation ได้
+- การใช้งานบน PlayStation 3 or 4 อาจจะจำเป็นต้องเพิ่งการตั้งค่าเล็กน้อยเพื่อให้สามารถรับรองการใช้งานของ PlayStation ได้
 - การลบการตั้งค่าบางตัวของ `UMS.conf` ไม่ได้ืำให้เกิดปัญหาในการืำงานแต่อย่างใด เนื่อจากระบบมีการกำหนดค่าพื้นฐานให้อยู่แล้ว
 
 
