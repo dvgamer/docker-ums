@@ -1,4 +1,4 @@
-dvgamer/ums:6.6.0 [![Build Status](https://travis-ci.org/dvgamer/docker-ums.svg?branch=6.6.0)](https://travis-ci.org/dvgamer/docker-ums)
+dvgamer/ums:6.6.0 [![Build Status](https://travis-ci.org/dvgamerr/docker-ums.svg?branch=master)](https://travis-ci.org/dvgamerr/docker-ums)
 ============
 
 Introduction
